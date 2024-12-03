@@ -68,6 +68,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         id = $('#areaId').val();
+        nombre = $('#name').val();
         descripcion = $('#description').val();
         trab1 = $('#urlwork1').val();
         trab2 = $('#urlwork2').val();
@@ -77,6 +78,7 @@ $(document).ready(function() {
 
         const data = {
             id: id,
+            nombre: nombre,
             descripcion: descripcion,
             trab1: trab1,
             trab2: trab2,

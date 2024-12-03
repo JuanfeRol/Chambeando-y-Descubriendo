@@ -66,7 +66,7 @@
 
         public function single($producto){
             $id = $producto['id'];
-            $sql = "SELECT * FROM info_areas";
+            $sql = "SELECT * FROM info_areas WHERE id = '{$id}'";
             $result = $this->conexion -> query( $sql);
             if (!$result){
                 die('Query failed');
