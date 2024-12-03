@@ -78,12 +78,12 @@
                 $json[] = array(
                     'id' => $id,
                     'nombre' => $row['nombre'],
-                    'precio' => $row['precio'],
-                    'unidades' => $row['unidades'],
-                    'modelo' => $row['modelo'],
-                    'marca' => $row['marca'],
-                    'detalles' => $row['detalles'],
-                    'imagen' => $row['imagen']
+                    'trab1' => $row['trab1'],
+                    'trab2' => $row['trab2'],
+                    'trab3' => $row['trab3'],
+                    'curso1' => $row['curso1'],
+                    'curso2' => $row['curso2'],
+                    'descripcion' => $row['descripcion']
                 );
             }
             

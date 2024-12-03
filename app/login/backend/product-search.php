@@ -4,7 +4,7 @@
 
     require_once __DIR__ . '/vendor/autoload.php';
 
-    $products = new Read('marketzone');
+    $products = new Read('ChambeandoDescubriendo');
     $products->search($_POST);
     echo $products->getData();
 
