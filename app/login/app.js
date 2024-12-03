@@ -8,7 +8,7 @@ function init() {
 
 $(document).ready(function() {
     let edit = false;
-    fetchProducts();
+    //fetchProducts();
     console.log("jQuery is ready");
 
     //Funcion buscar con Jquery
@@ -22,40 +22,39 @@ $(document).ready(function() {
                 type: 'POST',
                 data: {search},
                 success: function(response) {
-                    let products = JSON.parse(response);
+                    let areas = JSON.parse(response);
                     let template = "";
-                    products.forEach(product => {
-                        console.log(product);
-                        template += `<li>${product.nombre}</li>`;
+                    areas.forEach(area => {
+                        console.log(area);
+                        template += `<li>${area.nombre}</li>`;
                     });
-                    if (products.length > 0) {
-                        $("#product-result").removeClass("d-none");
+                    if (areas.length > 0) {
+                        $("#area-result").removeClass("d-none");
                     }
                     $('#container').html(template);
 
                     //Se listan los productos que coinciden con la busqueda con todos sus datos
-                    $("#products").html("");
-                    products.forEach(product => {
-                        $("#products").append(`
-                            <tr productId="${product.id}">
-                                <td>${product.id}</td>
+                    $("#areas").html("");
+                    areas.forEach(area => {
+                        $("#areas").append(`
+                            <tr areaId="${area.id}">
+                                <td>${area.id}</td>
                                 <td>
-                                    <a href="#" class="product-item">${product.nombre}</a>
+                                    <a href="#" class="area-item">${area.nombre}</a>
                                 </td>
-                                <td>${product.marca}</td>
-                                <td>${product.modelo}</td>
-                                <td>${product.precio}</td>
-                                <td>${product.detalles}</td>
-                                <td>${product.unidades}</td>
+                                <td>${area.descripcion}</td>
                                 <td>
-                                    <img src="${product.imagen}" class="img-fluid" alt="Imagen del producto">
+                                    <ul>${area.trab1}</ul>
+                                    <ul>${area.trab2}</ul>
+                                    <ul>${area.trab3}</ul>
                                 </td>
                                 <td>
-                                    <button class="product-delete btn btn-danger">Eliminar</button>
+                                    <ul>${area.curso1}</ul>
+                                    <ul>${area.curso2}</ul>
                                 </td>
                             </tr>
                         `);
-                    });                
+                    });
                 }
 
             }
@@ -65,96 +64,56 @@ $(document).ready(function() {
     });
 
     //Enviar Productos con jquery
-    $("#product-form").submit(function (e) {
+    $("#area-form").submit(function (e) {
         e.preventDefault();
 
-        id = $('#productId').val();
-        nombre = $('#name').val();
-        marca = $('#brand').val();
-        modelo = $('#model').val();
-        precio = $('#price').val();
-        detalles = $('#details').val();
-        unidades = $('#units').val();
-        imagen = $('#image').val();
+        id = $('#areaId').val();
+        descripcion = $('#description').val();
+        trab1 = $('#urlwork1').val();
+        trab2 = $('#urlwork2').val();
+        trab3 = $('#urlwork3').val();
+        curso1 = $('#urlcourse1').val();
+        curso2 = $('#urlcourse2').val();
 
         const data = {
             id: id,
-            nombre: nombre,
-            marca: marca,
-            modelo: modelo,
-            precio: precio,
-            detalles: detalles,
-            unidades: unidades,
-            imagen: imagen,
+            descripcion: descripcion,
+            trab1: trab1,
+            trab2: trab2,
+            trab3: trab3,
+            curso1: curso1,
+            curso2: curso2,
         };
 
         //se convierte a string para poder enviarlo
-        dataJsonString = JSON.stringify(data);        
-        //Validaciones de datos:
-
-        // Validar nombre (requerido y 100 caracteres o menos)
-        if (data.nombre.trim() === "" || data.nombre.length > 100) {
-            alert("El nombre es obligatorio y debe tener 100 caracteres o menos.");
-            return false;
-        }
-
-        // Validar marca (requerida y seleccionada)
-        if (data.marca.trim() === "") {
-            alert("Debes seleccionar una marca.");
-            return false;
-        }
-
-        // Validar modelo (requerido, alfanumérico y 25 caracteres o menos)
-        const modeloRegex = /^[a-zA-Z0-9]+$/;
-        if (data.modelo.trim() === "" || !modeloRegex.test(data.modelo) || data.modelo.length > 25) {
-            alert("El modelo es obligatorio, debe ser alfanumérico y tener 25 caracteres o menos.");
-            return false;
-        }
-
-        // Validar precio (requerido y mayor a 99.99)
-        if (isNaN(data.precio) || parseFloat(data.precio) <= 99.99) {
-            alert("El precio es obligatorio y debe ser mayor a 99.99.");
-            return false;
-        }
-
-        // Validar unidades (requerido y mayor o igual a 0)
-        if (isNaN(data.unidades) || parseInt(data.unidades) < 0) {
-            alert("Las unidades son obligatorias y deben ser un número mayor o igual a 0.");
-            return false;
-        }
-
-        // Validar detalles (opcional, pero si se usa, máximo 250 caracteres)
-        if (data.detalles.length > 250) {
-            alert("Los detalles deben tener 250 caracteres o menos.");
-            return false;
-        }
+        dataJsonString = JSON.stringify(data);
 
         console.log(data);
         console.log(dataJsonString);
-        let url = 
+        let url =
             edit === false ? "backend/product-add.php" : "backend/product-edit.php";
         $.post(url, dataJsonString, function (response) {
             console.log(response);
             let message= JSON.parse(response);
             let template = "";
             template = `<p>${message.message}</p>`;
-            $("#product-form").trigger("reset");
-            init();
+            $("#area-form").trigger("reset");
+            //init();
             alert(response);
-            fetchProducts();
+            //fetchProducts();
 
             if (message.message.length > 0) {
-                $("#product-result").removeClass("d-none");
-              }
-      
-              $("#container").html(template);
+                $("#area-result").removeClass("d-none");
+            }
+
+            $("#container").html(template);
         
 
         });
         e.preventDefault();
     });
 
-
+/*
     //validar cada campo del formulario y mostrar el estado en una barra de estado
     //validar que el nombre no exista en la base de datos
     $("#name").keyup(function() {
@@ -192,24 +151,44 @@ $(document).ready(function() {
         });
     }
     );
-
-
-    //validadar marca
-    $("#brand").keyup(function() {
-        let brand = $("#brand").val();
-        if (brand.trim() === "") {
-            $("#brand").addClass("is-invalid");
-            $("#brand").removeClass("is-valid");
+*/
+    //validar descripción
+    $("#description").keyup(function() {
+        let descripcion = $("#description").val();
+        if (descripcion.trim() === "") {
+            $("#description").addClass("is-invalid");
+            $("#description").removeClass("is-valid");
         }
         else {
-            $("#brand").addClass("is-valid");
-            $("#brand").removeClass("is-invalid");
+            $("#description").addClass("is-valid");
+            $("#description").removeClass("is-invalid");
+        }
+    });
+    //Validar el ingreso de al menos un url de cada tipo
+    $("#urlwork1").keyup(function() {
+        let trab1 = $("#urlwork1").val();
+        if (trab1.trim() === "") {
+            $("#urlwork1").addClass("is-invalid");
+            $("#urlwork1").removeClass("is-valid");
+        }
+        else {
+            $("#urlwork1").addClass("is-valid");
+            $("#urlwork1").removeClass("is-invalid");
         }
     });
 
- 
-
-
+    $("#urlcourse1").keyup(function() {
+        let curso1 = $("#urlcourse1").val();
+        if (curso1.trim() === "") {
+            $("#urlcourse1").addClass("is-invalid");
+            $("#urlcourse1").removeClass("is-valid");
+        }
+        else {
+            $("#urlcourse1").addClass("is-valid");
+            $("#urlcourse1").removeClass("is-invalid");
+        }
+    });
+    /*
     //validar modelo
     $("#model").keyup(function() {
         let model = $("#model").val();
@@ -222,46 +201,7 @@ $(document).ready(function() {
             $("#model").removeClass("is-invalid");
         }
     });
-
-    //validar precio
-    $("#price").keyup(function() {
-        let price = $("#price").val();
-        if (isNaN(price) || parseFloat(price) <= 99.99) {
-            $("#price").addClass("is-invalid");
-            $("#price").removeClass("is-valid");
-        } else {
-            $("#price").addClass("is-valid");
-            $("#price").removeClass("is-invalid");
-        }
-    });
-
-    //validar unidades
-
-    $("#units").keyup(function() {
-        let units = $("#units").val();
-        if (isNaN(units) || parseInt(units) < 0) {
-            $("#units").addClass("is-invalid");
-            $("#units").removeClass("is-valid");
-        } else {
-            $("#units").addClass("is-valid");
-            $("#units").removeClass("is-invalid");
-        }
-    }
-    );
-
-    //validar detalles
-    $("#details").keyup(function() {
-        let details = $("#details").val();
-        if (details.length > 250) {
-            $("#details").addClass("is-invalid");
-            $("#details").removeClass("is-valid");
-        } else {
-            $("#details").addClass("is-valid");
-            $("#details").removeClass("is-invalid");
-        }
-    });
-
-
+    */
 
     //Mostrar productos con jquery
     function fetchProducts() {
@@ -276,7 +216,7 @@ $(document).ready(function() {
                     <tr productId="${product.id}">
                         <td>${product.id}</td>
                         <td>
-                            <a href="#" class="product-item">${product.nombre}</a>
+                            <a href="#" class="area-item">${product.nombre}</a>
                         </td>
                         <td>${product.marca}</td>
                         <td>${product.modelo}</td>
@@ -297,20 +237,8 @@ $(document).ready(function() {
         });
     }
 
-    //Eliminar productos con jquery
-    $(document).on("click", ".product-delete", function () {
-        if (confirm("¿Estás seguro de querer eliminar este producto?")) {
-            let element = $(this)[0].parentElement.parentElement;
-            let id = $(element).attr("productId");
-            $.post("backend/product-delete.php", {id}, function (response) {
-                fetchProducts();
-                alert(response);
-            });
-        }
-    });
-
     //Editar productos con jquery
-    $(document).on("click", ".product-item", function () {
+    $(document).on("click", ".area-item", function () {
         let element = $(this)[0].parentElement.parentElement;
         let id = $(element).attr("productId");
         $.post("backend/product-single.php", {id}, function (response) {

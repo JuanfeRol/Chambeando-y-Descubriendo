@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>ProductApp</title>
+    <title>Administración</title>
     <!-- BOOTSTRAP 4  -->
     <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
   </head>
@@ -10,7 +10,7 @@
 
     <!-- BARRA DE NAVEGACIÓN  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href=".">ProductApp</a>
+      <a class="navbar-brand" href=".">Administration Panel</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,22 +30,29 @@
           <div class="card">
             <div class="card-body">
               <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
-              <form id="product-form">
+              <form id="area-form">
                 <div class="form-group">
-                  <input class="form-control" type="text" id="name" placeholder="Nombre de producto">
+                  <label for="name">Nombre del área</label>
+                  <input class="form-control" type="text" id="name" placeholder="Nombre del área" readonly>
                 </div>
-                <div class="product-form">
+                <div class="area-form">
                   <!-- <textarea class="form-control" id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea> -->
-                  <input class="form-control" type="text" id="price" placeholder="Precio de producto, mayor a 99.0">
-                  <input class="form-control" type="text" id="units" placeholder="Unidades del producto, mayor a 0">
-                  <input class="form-control" type="text" id="model" placeholder="Modelo del producto, solo caracteres alfanumericos">
-                  <input class="form-control" type="text" id="brand" placeholder="Marca del producto, valor necesario">
-                  <input class="form-control" type="text" id="details" placeholder="Detalles del producto, maximo 250 caracteres">
-                  <input class="form-control" type="text" id="image" placeholder="Ruta de imagen del producto">
+                  <label for="description">Descripción</label>
+                  <input class="form-control" type="text" id="description" placeholder="Descripción del área">
+                  <label for="urlwork1">Referencia de trabajo 1</label>
+                  <input class="form-control" type="url" id="urlwork1" placeholder="URL trabajo 1">
+                  <label for="urlwork2">Referencia de trabajo 2</label>
+                  <input class="form-control" type="url" id="urlwork2" placeholder="URL trabajo 2">
+                  <label for="urlwork3">Referencia de trabajo 3</label>
+                  <input class="form-control" type="url" id="urlwork3" placeholder="URL trabajo 3">
+                  <label for="urlcourse1">Referencia de curso 1</label>
+                  <input class="form-control" type="url" id="urlcourse1" placeholder="URL curso 1">
+                  <label for="urlcourse2">Referencia de curso 2</label>
+                  <input class="form-control" type="url" id="urlcourse2" placeholder="URL curso 2">
                 </div>
-                <input type="hidden" id="productId">
+                <input type="hidden" id="areaId">
                 <button class="btn btn-primary btn-block text-center" type="submit">
-                  Agregar Producto
+                  Modificar área
                 </button>
               </form>
             </div>
@@ -54,7 +61,7 @@
 
         <!-- TABLA  -->
         <div class="col-md-7">
-          <div class="card my-4 d-none" id="product-result">
+          <div class="card my-4 d-none" id="area-result">
             <div class="card-body">
               <!-- RESULTADO -->
               <ul id="container"></ul>
@@ -66,15 +73,12 @@
               <tr>
                 <td>Id</td>
                 <td>Nombre</td>
-                <td>Marca</td>
-                <td>Modelo</td>
-                <td>Precio</td>
-                <td>Detalles</td>
-                <td>Unidades</td>
-                <td>Imagen</td>
+                <td>Descripción</td>
+                <td>Trabajo</td>
+                <td>Cursos o certificaciones</td>
               </tr>
             </thead>
-            <tbody id="products"></tbody>
+            <tbody id="areas"></tbody>
           </table>
         </div>
       </div>
