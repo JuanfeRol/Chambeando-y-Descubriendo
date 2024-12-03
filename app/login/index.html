@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Administración</title>
+    <!-- BOOTSTRAP 4  -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+  </head>
+  <body onload="init()">
+
+    <!-- BARRA DE NAVEGACIÓN  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href=".">Administration Panel</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto"></ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="search" id="search" type="search" placeholder="ID, marca o descripción" aria-label="Search">
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+          </form>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row p-4">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-body">
+              <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
+              <form id="area-form">
+                <div class="form-group">
+                  <label for="name">Nombre del área</label>
+                  <input class="form-control" type="text" id="name" placeholder="Nombre del área" readonly>
+                </div>
+                <div class="area-form">
+                  <!-- <textarea class="form-control" id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea> -->
+                  <label for="description">Descripción</label>
+                  <input class="form-control" type="text" id="description" placeholder="Descripción del área">
+                  <label for="urlwork1">Referencia de trabajo 1</label>
+                  <input class="form-control" type="url" id="urlwork1" placeholder="URL trabajo 1">
+                  <label for="urlwork2">Referencia de trabajo 2</label>
+                  <input class="form-control" type="url" id="urlwork2" placeholder="URL trabajo 2">
+                  <label for="urlwork3">Referencia de trabajo 3</label>
+                  <input class="form-control" type="url" id="urlwork3" placeholder="URL trabajo 3">
+                  <label for="urlcourse1">Referencia de curso 1</label>
+                  <input class="form-control" type="url" id="urlcourse1" placeholder="URL curso 1">
+                  <label for="urlcourse2">Referencia de curso 2</label>
+                  <input class="form-control" type="url" id="urlcourse2" placeholder="URL curso 2">
+                </div>
+                <input type="hidden" id="areaId">
+                <button class="btn btn-primary btn-block text-center" type="submit">
+                  Modificar área
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA  -->
+        <div class="col-md-7">
+          <div class="card my-4 d-none" id="area-result">
+            <div class="card-body">
+              <!-- RESULTADO -->
+              <ul id="container"></ul>
+            </div>
+          </div>
+
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Nombre</td>
+                <td>Descripción</td>
+                <td>Trabajo</td>
+                <td>Cursos o certificaciones</td>
+              </tr>
+            </thead>
+            <tbody id="areas"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <!-- Lógica del Frontend -->
+    <script src="app.js"></script>
+  </body>
+
+</html>
