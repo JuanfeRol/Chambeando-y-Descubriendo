@@ -3,7 +3,7 @@
         'localhost',
         'root',
         'pochita20',
-        'marketzone'
+        'ChambeandoDescubriendo'
     );
 
     /**

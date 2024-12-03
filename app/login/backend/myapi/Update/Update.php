@@ -10,16 +10,16 @@
         public function edit($producto){
             $data = array(
                 'status'  => 'error',
-                'message' => 'Ya existe un producto con ese nombre'
+                'message' => 'Ya existe un area con ese nombre'
             );
                 // SE TRANSFORMA EL STRING DEL JASON A OBJETO
                 // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
-                $sql = "UPDATE productos SET nombre = '{$producto->nombre}', marca = '{$producto->marca}', modelo = '{$producto->modelo}', precio = '{$producto->precio}', detalles = '{$producto->detalles}', unidades = '{$producto->unidades}', imagen = '{$producto->imagen}' WHERE id = {$producto->id}";
+                $sql = "UPDATE info_areas SET nombre = '{$producto->nombre}', descripcion = '{$producto->descripcion}', trab1 = '{$producto->trab1}', trab2 = '{$producto->trab2}', trab3 = '{$producto->trab3}', curso1 = '{$producto->curso1}', curso2 = '{$producto->curso2}' WHERE id = {$producto->id}";
         
                 // Execute the statement
                 if ($this->conexion->query($sql) === TRUE) {
                     $data['status'] =  "success";
-                    $data['message'] =  "Producto editado correctamente";
+                    $data['message'] =  "Area editada correctamente";
                 } else {
                     $data['message'] = "ERROR: No se ejecutó la consulta. " . $this->conexion->error;
                 }

@@ -15,7 +15,7 @@
             $data = array();
 
             // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
-            if ( $result = $this->conexion->query("SELECT * FROM productos WHERE eliminado = 0") ) {
+            if ( $result = $this->conexion->query("SELECT * FROM info_areas") ) {
                 // SE OBTIENEN LOS RESULTADOS
                 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -41,7 +41,7 @@
             if( isset($producto['search']) ) {
                 $search = $producto['search'];
                 // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
-                $sql = "SELECT * FROM productos WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR marca LIKE '%{$search}%' OR detalles LIKE '%{$search}%') AND eliminado = 0";
+                $sql = "SELECT * FROM info_areas WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR descripcion LIKE '%{$search}%'";
                 if ( $result = $this->conexion->query($sql) ) {
                     // SE OBTIENEN LOS RESULTADOS
                     $rows = $result->fetch_all(MYSQLI_ASSOC);
@@ -66,7 +66,7 @@
 
         public function single($producto){
             $id = $producto['id'];
-            $sql = "SELECT * FROM productos WHERE id = $id";
+            $sql = "SELECT * FROM info_areas";
             $result = $this->conexion -> query( $sql);
             if (!$result){
                 die('Query failed');
@@ -100,7 +100,7 @@
             if( isset($producto['name']) ) {
                 $search = $producto['name'];
                 // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
-                $sql = "SELECT * FROM productos WHERE nombre = '{$search}' AND eliminado = 0";
+                $sql = "SELECT * FROM info_areas WHERE nombre = '{$search}'";
                 if ( $result = $this->conexion->query($sql) ) {
                     // SE OBTIENEN LOS RESULTADOS
                     $rows = $result->fetch_all(MYSQLI_ASSOC);
