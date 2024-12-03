@@ -41,7 +41,7 @@
             if( isset($producto['search']) ) {
                 $search = $producto['search'];
                 // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
-                $sql = "SELECT * FROM info_areas WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR descripcion LIKE '%{$search}%'";
+                $sql = "SELECT * FROM info_areas WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR descripcion LIKE '%{$search}%')";
                 if ( $result = $this->conexion->query($sql) ) {
                     // SE OBTIENEN LOS RESULTADOS
                     $rows = $result->fetch_all(MYSQLI_ASSOC);
