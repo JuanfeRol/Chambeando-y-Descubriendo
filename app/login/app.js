@@ -8,7 +8,7 @@ function init() {
 
 $(document).ready(function() {
     let edit = false;
-    //fetchProducts();
+    fetchProducts();
     console.log("jQuery is ready");
 
     //Funcion buscar con Jquery
@@ -100,7 +100,7 @@ $(document).ready(function() {
             $("#area-form").trigger("reset");
             //init();
             alert(response);
-            //fetchProducts();
+            fetchProducts();
 
             if (message.message.length > 0) {
                 $("#area-result").removeClass("d-none");
@@ -141,7 +141,7 @@ $(document).ready(function() {
                 let searchProducts = JSON.parse(response);
                 let template = "";
                 searchProducts.forEach(product => {
-                    template += `<li>Producto existente: ${product.nombre} <br>Elige un nuevo nombre por favor</li>`;
+                    template += `<li>Producto existente: ${area.nombre} <br>Elige un nuevo nombre por favor</li>`;
                 });
                 if (searchProducts.length > 0) {
                     $("#product-result").removeClass("d-none");
@@ -209,59 +209,49 @@ $(document).ready(function() {
             url: 'backend/product-list.php',
             type: 'GET',
             success: function (response) {
-                let products = JSON.parse(response);
+                let areas = JSON.parse(response);
                 let template = "";
-                products.forEach(product => {
+                areas.forEach(area => {
                     template += `
-                    <tr productId="${product.id}">
-                        <td>${product.id}</td>
+                    <tr areaId="${area.id}">
+                        <td>${area.id}</td>
                         <td>
-                            <a href="#" class="area-item">${product.nombre}</a>
+                            <a href="#" class="area-item">${area.nombre}</a>
                         </td>
-                        <td>${product.marca}</td>
-                        <td>${product.modelo}</td>
-                        <td>${product.precio}</td>
-                        <td>${product.detalles}</td>
-                        <td>${product.unidades}</td>
+                        <td>${area.descripcion}</td>
                         <td>
-                            <img src="${product.imagen}" class="img-fluid" alt="Imagen del producto">
+                            <ul>${area.trab1}</ul>
+                            <ul>${area.trab2}</ul>
+                            <ul>${area.trab3}</ul>
                         </td>
                         <td>
-                            <button class="product-delete btn btn-danger">Eliminar</button>
+                            <ul>${area.curso1}</ul>
+                            <ul>${area.curso2}</ul>
                         </td>
                     </tr>
                     `;
                 });
-                $('#products').html(template);
+                $('#areas').html(template);
             }
         });
     }
 
-    //Editar productos con jquery
+    //Editar areas con jquery
     $(document).on("click", ".area-item", function () {
         let element = $(this)[0].parentElement.parentElement;
-        let id = $(element).attr("productId");
+        let id = $(element).attr("areaId");
         $.post("backend/product-single.php", {id}, function (response) {
-            const product = JSON.parse(response);
-            console.log(product);
-            $('#productId').val(product.id);
-            $('#name').val(product.nombre);
-            baseJSON = {
-                "precio": product.precio,
-                "unidades": product.unidades,
-                "modelo": product.modelo,
-                "marca": product.marca,
-                "detalles": product.detalles,
-                "imagen": product.imagen
-            };
+            const area = JSON.parse(response);
+            console.log(area);
             //asginar valores a los campos del formulario
-            $('#price').val(baseJSON.precio);
-            $('#units').val(baseJSON.unidades);
-            $('#model').val(baseJSON.modelo);
-            $('#brand').val(baseJSON.marca);
-            $('#details').val(baseJSON.detalles);
-            $('#image').val(baseJSON.imagen);
-            $('#description').val(baseJSON.nombre);
+            $('#areaId').val(area.id);
+            $('#name').val(area.nombre);
+            $('#description').val(area.descripcion);
+            $('#urlwork1').val(area.trab1);
+            $('#urlwork2').val(area.trab2);
+            $('#urlwork3').val(area.trab3);
+            $('#urlcourse1').val(area.curso1);
+            $('#urlcourse2').val(area.curso2);
             edit = true;
         });
     });
