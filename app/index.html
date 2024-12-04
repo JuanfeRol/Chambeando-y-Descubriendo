@@ -6,7 +6,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>ODS 8 - Chambeando y descubriendo</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -38,7 +38,8 @@
         /* Contenedor del formulario */
         #formularioArea,
         #formularioEvaluacion,
-        #infoPersonal {
+        #infoPersonal, 
+        #GraficaRes {
             background: #fff;
             border-radius: 8px;
             padding: 2rem;
@@ -169,7 +170,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#formularioArea">Formulario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#infoPersonal">Formulario</a></li>
                         <li class="nav-item"><a class="nav-link" href="./login/login.php">Iniciar sesión</a></li>
                     </ul>
                 </div>
@@ -594,23 +595,23 @@
                 </div>
             </div>            
         </form>
-        <!--Generar gráfica de barras-->
-        <h1>Resultados por Área</h1>
-        <canvas id="areaChart" width="400" height="200"></canvas>
-        <!--
-        <script src="app.js"></script>
-        -->
+        <!-- Generar gráfica de barras -->
+        <div id="GraficaRes">
+            <h1>Resultados por Área</h1>
+            <canvas id="areaChart" width="400" height="200"></canvas>
+        </div>
         
-
         <!-- Footer-->
         <footer class="py-5 bg-black">
             <div class="container px-5"><p class="m-0 text-center text-white small">Objetivos de Desarrollo Sostenible &copy; Chambeando y Descubriendo 2024</p></div>
+            <div class="container px-5"><p class="m-0 text-center text-black small">Messi </p></div>
         </footer>
         <!-- Core JS-->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"        
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
         <!-- Core theme JS-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="app.js"></script>
     </body>
 </html>

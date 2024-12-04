@@ -4,7 +4,7 @@
 
     require_once __DIR__ . '/vendor/autoload.php';
 
-    $products = new Read('ChambeandoDescubriendo');
+    $products = new Read('chameandodescubriendo');
     $products->single($_POST);
     echo $products->getData();
 

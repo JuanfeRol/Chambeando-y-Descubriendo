@@ -1,3 +1,7 @@
+function encontrarMayor(a, b, c, d, e) {
+    return Math.max(a, b, c, d, e);
+}
+
 function getScoreperArea(){
     //Obtención de valores por pregunta
     let a1 = $('input[name="form1-p1"]:checked').val();
@@ -42,8 +46,26 @@ function getScoreperArea(){
     console.log("desarrollo "+desarrollo+", redes "+redes+", robotica "+robotica+", ia "+ia+", datac "+datac);
     
     // Retornar los resultados
-    return { desarrollo, redes, robotica, ia, datac };
+    return Math.max(a, b, c, d);;
 }
+
+/*function getArea() {
+    const ctx = document.getElementById('areaChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Área 1', 'Área 2', 'Área 3','Área 4','Área 5'],
+            datasets: [{
+                label: 'Puntuación',
+                data: [getScoreperArea()],
+                backgroundColor: ['red', 'blue', 'green', 'purple','white'],
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+}*/
 
 $(document).ready(function(){
     $('#form').submit(function(e){
@@ -161,7 +183,8 @@ $(document).ready(function(){
             }
             //Llamado a función para obtención de valores por área
             
-            //getScoreperArea();
+            
+
             artistico = $('input[name="form1-p1"]:checked').val();
             comportamientos= $('input[name="form1-p2"]:checked').val();
             predecir= $('input[name="form1-p3"]:checked').val();
@@ -218,8 +241,22 @@ $(document).ready(function(){
                 alert(response);
             });
             e.preventDefault();
-        }
-
+            
+            const scores = getScoreperArea();
+            const mayor = encontrarMayor(scores.desarrollo,scores.redes,scores.robotica,scores.ia,scores.datac);
+            // Mostrar resultados en el HTML
+            const responseDiv = document.getElementById("GraficaRes");     
+            responseDiv.innerHTML = `
+            <h1>Resultados por Área</h1>
+            <h2>Resultados</h2> 
+            <p>Desarrollo: ${scores.desarrollo}</p> 
+            <p>Redes: ${scores.redes}</p> 
+            <p>Robótica: ${scores.robotica}</p> 
+            <p>IA ${scores.ia}</p> 
+            <p>Data Science: ${scores.datac}</p> 
+            
+            <p><strong>Tu trabajo ideal es: ${mayor}</strong></p>`; 
+        };
         
         //alert("Se ha presionado enviar");
     });
