@@ -71,9 +71,21 @@ $(document).ready(function(){
     $('#form').submit(function(e){
         let completeArea = true;
         let completeStats = true;
+        let completePersonal = true;
         let message = "";
         e.preventDefault();
         //Validación de selección de respuesta a todas las preguntas
+        if (!$('#nombre').val()=== ""){
+            completePersonal = false;
+        }
+        if ($('#edad').val()=== ""){
+            completePersonal = false;
+        }
+        //Mensaje de no validacón de datos personales
+        if(!completePersonal){
+            message = message + "Indica tus datos personales. ";
+        }
+
         if(!document.querySelector('input[name="form1-p1"]:checked')) {
             completeArea = false;
         }
