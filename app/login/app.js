@@ -18,7 +18,7 @@ $(document).ready(function() {
         console.log(search);
         $.ajax(
             {
-                url: 'backend/product-search.php',
+                url: '../backend/backend4login/product-search.php',
                 type: 'POST',
                 data: {search},
                 success: function(response) {
@@ -93,7 +93,7 @@ $(document).ready(function() {
         console.log(data);
         console.log(dataJsonString);
         let url =
-            edit === false ? "backend/product-add.php" : "backend/product-edit.php";
+            edit === false ? "../backend/backend4login/product-add.php" : "../backend/backend4login/product-edit.php";
         $.post(url, dataJsonString, function (response) {
             console.log(response);
             let message= JSON.parse(response);
@@ -208,7 +208,7 @@ $(document).ready(function() {
     //Mostrar productos con jquery
     function fetchProducts() {
         $.ajax({
-            url: 'backend/product-list.php',
+            url: '../backend/backend4login/product-list.php',
             type: 'GET',
             success: function (response) {
                 let areas = JSON.parse(response);
@@ -242,7 +242,7 @@ $(document).ready(function() {
     $(document).on("click", ".area-item", function () {
         let element = $(this)[0].parentElement.parentElement;
         let id = $(element).attr("areaId");
-        $.post("backend/product-single.php", {id}, function (response) {
+        $.post("../backend/backend4login/product-single.php", {id}, function (response) {
             const area = JSON.parse(response);
             console.log(area);
             //asginar valores a los campos del formulario

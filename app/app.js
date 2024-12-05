@@ -265,7 +265,7 @@ $(document).ready(function(){
             };
             
 
-             let url = 'backend/resp-add.php';
+             let url = '../backend/backend4form/resp-add.php';
              $.post(url, postData, function(response){
                 console.log(postData);
                 $('#form').trigger('reset');
@@ -302,7 +302,7 @@ $(document).ready(function(){
             
             // Solicitud AJAX para obtener detalles del área recomendada
             $.ajax({
-                url: 'login/backend/product-list.php',
+                url: '../backend/backend4login/product-list.php',
                 type: 'GET',
                 success: function (response) {
                     // Parsear la respuesta del servidor

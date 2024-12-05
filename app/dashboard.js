@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $.ajax({
-        url: 'backend/resp-read.php',
+        url: '../backend/backend4form/resp-read.php',
         type: 'GET',
         success: function(response){
             let data1 = JSON.parse(response); // Asegúrate de parsear si es JSON
