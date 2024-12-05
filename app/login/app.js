@@ -93,7 +93,7 @@ $(document).ready(function() {
         console.log(data);
         console.log(dataJsonString);
         let url =
-            edit === false ? "../backend/backend4login/edir" : "../backend/backend4login/edit";
+            edit === false ? "../backend/backend4login/edit" : "../backend/backend4login/edit";
         $.post(url, dataJsonString, function (response) {
             console.log(response);
             let message= JSON.parse(response);
