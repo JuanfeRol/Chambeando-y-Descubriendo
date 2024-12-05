@@ -149,7 +149,7 @@ $(document).ready(function(){
             message = message + "Selecciona una respuesta para cada pregunta de evaluación. ";
         }
 
-        if(!completeArea || !completeStats){ //Si hay respuestas vacías
+        if(!completeArea || !completeStats || !completePersonal ){ //Si hay respuestas vacías
             alert(message);
         } else {        //Si el formulario está completo
             //Envío a base de datos
@@ -252,7 +252,7 @@ $(document).ready(function(){
                 $('#form').trigger('reset');
                 alert(response);
             });
-            e.preventDefault();
+            //e.preventDefault();
             
             const scores = getScoreperArea();
             const mayor = encontrarMayor(scores.desarrollo,scores.redes,scores.robotica,scores.ia,scores.datac);
