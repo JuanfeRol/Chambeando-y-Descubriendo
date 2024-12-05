@@ -1,5 +1,13 @@
-function encontrarMayor(a, b, c, d, e) {
-    return Math.max(a, b, c, d, e);
+function encontrarMayor(desarrollo,redes,robotica,ia,datac) {        
+    const valores = [desarrollo, redes, robotica, ia, datac];
+    
+    const valorMaximo = Math.max(...valores);
+
+    const indiceMaximo = valores.indexOf(valorMaximo);
+
+    const nombresVariables = ['Desarrollo', 'Redes', 'Robotica y Circuitos', 'Inteligencia Artificial', 'Ciencia de Datos'];
+    
+    return nombresVariables[indiceMaximo]
 }
 
 function getScoreperArea(){
@@ -46,7 +54,7 @@ function getScoreperArea(){
     console.log("desarrollo "+desarrollo+", redes "+redes+", robotica "+robotica+", ia "+ia+", datac "+datac);
     
     // Retornar los resultados
-    return Math.max(a, b, c, d);;
+    return  { desarrollo, redes, robotica, ia, datac };
 }
 
 /*function getArea() {
@@ -169,12 +177,12 @@ $(document).ready(function(){
             let redes = 10, desarrollo = 10, robotica = 10, ia = 10, datac = 10;
 
             //Obtencion de puntaje por área
-            desarrollo =+ (a1 - 3) + (a9 - 3) + (a11 - 3);
-            redes =+ (a5 - 3) + (a8 - 3) + (a10 -3);
-            robotica =+ (a1 - 3 ) + (a6 - 3 )+ (a8 - 3 ) + (a10 - 3);
-            ia =+ (a2 - 3 ) + (a7 - 3 ) + (a8 - 3);
+            desarrollo += (a1 - 3) + (a9 - 3) + (a11 - 3);
+            redes += (a5 - 3) + (a8 - 3) + (a10 -3);
+            robotica += (a1 - 3 ) + (a6 - 3 )+ (a8 - 3 ) + (a10 - 3);
+            ia += (a2 - 3 ) + (a7 - 3 ) + (a8 - 3);
             console.log(a2 +" "+ a7 +" "+ a8);
-            datac =+ (a2 - 3 ) + (a3 - 3 ) + (a5 - 3) + (a7 - 3) + (a8 -3);
+            datac += (a2 - 3 ) + (a3 - 3 ) + (a5 - 3) + (a7 - 3) + (a8 -3);
 
             switch (a4){
                 case 1:
@@ -241,10 +249,7 @@ $(document).ready(function(){
                 seguromed: seguromed,
                 satisfaccion: satisfaccion
             };
-            //console.log(postData);
-            //Envío a base de datos
-            //dataJsonString = JSON.stringify(postData);
-            //console.log(dataJsonString);
+            
 
              let url = 'backend/resp-add.php';
              $.post(url, postData, function(response){
@@ -254,22 +259,140 @@ $(document).ready(function(){
             });
             //e.preventDefault();
             
+
             const scores = getScoreperArea();
-            const mayor = encontrarMayor(scores.desarrollo,scores.redes,scores.robotica,scores.ia,scores.datac);
-            // Mostrar resultados en el HTML
-            const responseDiv = document.getElementById("GraficaRes");     
+            const mayor = encontrarMayor(scores.desarrollo, scores.redes, scores.robotica, scores.ia, scores.datac);
+
+            // Mostrar resultados iniciales en el HTML
+            const responseDiv = document.getElementById("GraficaRes");
             responseDiv.innerHTML = `
-            <h1>Resultados por Área</h1>
-            <h2>Resultados</h2> 
-            <p>Desarrollo: ${scores.desarrollo}</p> 
-            <p>Redes: ${scores.redes}</p> 
-            <p>Robótica: ${scores.robotica}</p> 
-            <p>IA ${scores.ia}</p> 
-            <p>Data Science: ${scores.datac}</p> 
+                <h2 style="text-align: center; color: #4CAF50;">Resultados por Área</h2>
+                <div style="padding: 10px; font-family: Arial, sans-serif; line-height: 1.6;">
+                    <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">
+                        El área donde te recomendamos es: <span style="color: #FF5722;">${mayor}</span>
+                    </p>
+                </div>
+                <table id="areas" style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px;">
+                    <thead>
+                        <tr style="background-color: #f2f2f2; text-align: left; border-bottom: 2px solid #ddd;">
+                            <th style="padding: 8px;">ID</th>
+                            <th style="padding: 8px;">Nombre</th>
+                            <th style="padding: 8px;">Descripción</th>
+                            <th style="padding: 8px;">Trabajos</th>
+                            <th style="padding: 8px;">Cursos</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            `;
             
-            <p><strong>Tu trabajo ideal es: ${mayor}</strong></p>`; 
+            // Solicitud AJAX para obtener detalles del área recomendada
+            $.ajax({
+                url: 'login/backend/product-list.php',
+                type: 'GET',
+                success: function (response) {
+                    // Parsear la respuesta del servidor
+                    let areas = JSON.parse(response);
+
+                    // Filtrar áreas por el nombre del área recomendada (mayor)
+                    let filteredAreas = areas.filter(area => area.nombre === mayor);
+
+                    // Generar contenido HTML dinámico para la tabla
+                    let template = "";
+                    filteredAreas.forEach(area => {
+                        template += `
+                            <tr areaId="${area.id}" style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px;">${area.id}</td>
+                                <td style="padding: 8px;">
+                                    <a href="#" class="area-item" style="color: #2196F3; text-decoration: none;">${area.nombre}</a>
+                                </td>
+                                <td style="padding: 8px;">${area.descripcion}</td>
+                                <td style="padding: 8px;">
+                                    <ul>
+                                        <li><a href="${area.id}" style="color: #2196F3;">${area.trab1}</a></li>
+                                        <li><a href="${area.id}" style="color: #2196F3;">${area.trab2}</a></li>
+                                        <li><a href="${area.id}" style="color: #2196F3;">${area.trab3}</a></li>                                    
+                                    </ul>
+                                </td>
+                                <td style="padding: 8px;">
+                                    <ul>
+                                        <li><a href="${area.id}" style="color: #2196F3;">${area.curso1}</a></li>
+                                        <li><a href="${area.id}" style="color: #2196F3;">${area.curso2}</a></li>                
+                                    </ul>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    // Insertar las filas generadas en el cuerpo de la tabla
+                    $('#areas tbody').html(template);
+                },
+                error: function (error) {
+                    console.error("Error al cargar las áreas:", error);
+                }
+            }); 
+            responseDiv.innerHTML += `
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Resultados</h6>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Desarrollo <span class="float-right">${scores.desarrollo+10}</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-danger" role="progressbar" 
+                                style="width: ${(scores.desarrollo+10) * 10}%" 
+                                aria-valuenow="${scores.desarrollo}" aria-valuemin="0" aria-valuemax="30"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Redes <span class="float-right">${scores.redes+10}</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-warning" role="progressbar" 
+                                style="width: ${(scores.redes+10) * 10}%" 
+                                aria-valuenow="${scores.redes}" aria-valuemin="0" aria-valuemax="30"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Robótica y Circuitos<span class="float-right">${scores.robotica+10}</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar" role="progressbar" 
+                                style="width: ${(scores.robotica+10) * 10}%" 
+                                aria-valuenow="${scores.robotica}" aria-valuemin="0" aria-valuemax="30"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Inteligencia Artificial <span class="float-right">${scores.ia+10}</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-info" role="progressbar" 
+                                style="width: ${(scores.ia+10) * 10}%" 
+                                aria-valuenow="${scores.ia}" aria-valuemin="0" aria-valuemax="30"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Ciencia de Datos <span class="float-right">${scores.datac+10}</span></h4>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" 
+                                style="width: ${(scores.datac+10) * 10}%" 
+                                aria-valuenow="${scores.datac}" aria-valuemin="0" aria-valuemax="30"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+    
         };
-        
         //alert("Se ha presionado enviar");
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Obtener elementos del DOM
+    const form = document.getElementById("form");
+    const responseO = document.getElementById("GraficaRes");
+
+    // Ocultar el div de respuesta al cargar la página
+    responseO.style.display = "none";
+
+    // Escuchar el evento submit del formulario
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar el envío del formulario
+
+        // Ocultar el formulario
+        form.style.display = "none";
+
+        // Mostrar el div de respuesta con un mensaje
+        responseO.style.display = "block";
+        responseO.innerHTML = "<p>Gracias por enviar el formulario.</p>";
     });
 });

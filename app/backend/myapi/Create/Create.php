@@ -5,7 +5,7 @@ include_once __DIR__ ."/../DataBase.php";
 use MYAPI\DataBase as Database;
 
 class Create extends Database{
-    public function __construct($based, $usuario='root', $contrasena='621252') {
+    public function __construct($based, $usuario='root', $contrasena='Calcetines2') {
         parent::__construct($based, $usuario, $contrasena);
     }
 
