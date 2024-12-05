@@ -302,11 +302,13 @@ $(document).ready(function(){
             
             // Solicitud AJAX para obtener detalles del área recomendada
             $.ajax({
-                url: '/backend/backend4login/product-list.php',
+                url: './backend/backend4login/product-list.php',
                 type: 'GET',
                 success: function (response) {
+                    console.log(response);
                     // Parsear la respuesta del servidor
                     let areas = JSON.parse(response);
+                    
 
                     // Filtrar áreas por el nombre del área recomendada (mayor)
                     let filteredAreas = areas.filter(area => area.nombre === mayor);
