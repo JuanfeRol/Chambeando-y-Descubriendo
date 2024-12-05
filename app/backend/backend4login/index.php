@@ -1,5 +1,5 @@
 <?
-    require_once '../vendor/autoload.php';
+    require_once '/vendor/autoload.php';
 
     use API\Read\Read;
     use API\Update\Update;

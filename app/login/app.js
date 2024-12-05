@@ -93,7 +93,7 @@ $(document).ready(function() {
         console.log(data);
         console.log(dataJsonString);
         let url =
-            edit === false ? "../backend/backend4login/list" : "../backend/backend4login/list";
+            edit === false ? "../backend/backend4login/edir" : "../backend/backend4login/edit";
         $.post(url, dataJsonString, function (response) {
             console.log(response);
             let message= JSON.parse(response);
@@ -203,7 +203,7 @@ $(document).ready(function() {
     $(document).on("click", ".area-item", function () {
         let element = $(this)[0].parentElement.parentElement;
         let id = $(element).attr("areaId");
-        $.post("../backend/backend4login/product-single.php", {id}, function (response) {
+        $.post("../backend/backend4login/single", {id}, function (response) {
             const area = JSON.parse(response);
             console.log(area);
             //asginar valores a los campos del formulario
