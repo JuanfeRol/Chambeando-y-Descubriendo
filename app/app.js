@@ -215,8 +215,8 @@ $(document).ready(function(){
             }
             //Llamado a función para obtención de valores por área
             
-            
-
+            nombre = $('#nombre').val();
+            edad = $('#edad').val();
             artistico = $('input[name="form1-p1"]:checked').val();
             comportamientos= $('input[name="form1-p2"]:checked').val();
             predecir= $('input[name="form1-p3"]:checked').val();
@@ -237,6 +237,8 @@ $(document).ready(function(){
             satisfaccion= $('input[name="form2-p6"]:checked').val();
             const postData = {
                 //form 1
+                nombre: nombre,
+                edad: edad,
                 artistico: artistico,
                 comportamientos: comportamientos,
                 predecir: predecir,

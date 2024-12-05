@@ -1,18 +1,22 @@
 $(document).ready(function(){
-    //Gráfica edades
-    const labelsAge = ['16-25', '26-35', '36-45', '46-55', '56-65', '65-80']
+    $.ajax({
+        url: 'backend/resp-read.php',
+        type: 'GET',
+        success: function(response){
+            let data1 = JSON.parse(response); // Asegúrate de parsear si es JSON
+            console.log(data1);
+    // Define la gráfica aquí
+    const labelsAge = ['16-25', '26-35', '36-45', '46-55', '56-65', '65-80'];
     const graphAge = document.querySelector("#graphAge");
-
     const dataAge = {
         labels: labelsAge,
         datasets: [{
             label: "Personas",
-            data: [2,3,4,5,6,1], //Sustituir en orden
+            data: data1.edad, // Ahora data1 tiene el valor esperado
             backgroundColor: 'rgba(144, 12, 63,0.4)',
             borderColor: 'rgba(144, 12, 63,1)',
             borderWidth: 1
-        },
-        ]
+        }]
     };
 
     const configAge = {
@@ -30,7 +34,7 @@ $(document).ready(function(){
         labels: labelsArea,
         datasets: [{
             label: "Personas",
-            data: [2,3,4,5,6], //Sustituir en el orden redes, robot, ia, cienciaD, desarolloW
+            data: data1.persporarea, //Sustituir en el orden redes, robot, ia, cienciaD, desarolloW
             backgroundColor: 'rgba(229,112,126,0.4)',
             borderColor: 'rgba(229,112,126,1)',
             borderWidth: 1
@@ -52,7 +56,7 @@ $(document).ready(function(){
         labels: labelsSalary,
         datasets: [{
             label: "Respuestas",
-            data: [2,3,4,5], //Sustituir en el orden redes, robot, ia, cienciaD, desarolloW
+            data: data1.salmensual, //Sustituir en el orden redes, robot, ia, cienciaD, desarolloW
             backgroundColor: 'rgba(230,181,102,0.5)',
             borderColor: 'rgba(230,181,102,1)',
             borderWidth: 1
@@ -79,16 +83,15 @@ $(document).ready(function(){
     const colorsYN3 = ['rgba(238, 142, 46,0.5)', 'rgba(238, 238, 46,0.5)',];
     const bordercolorYN3 = ['rgba(238, 142, 46,1)', 'rgba(238, 238, 46,1)'];
     
-    
-
-    
-
     //Gráfica prestaciones de ley
+    var presleyy = [];
+    presleyy[0] = data1.presley.Si;
+    presleyy[1] = data1.presley.No;
     const graphBenefits = document.querySelector("#graphBenefits");
     const dataBenefits = {
         labels: labelsYesNo,
         datasets: [{
-            data: [15,18], //Reemplazar por consulta en base de datos
+            data: presleyy, //Reemplazar por consulta en base de datos
             backgroundColor: colorsYN0,
             borderColor: bordercolorYN0,
             borderWidth: 1
@@ -102,12 +105,15 @@ $(document).ready(function(){
     new Chart(graphBenefits, configBenefits);
     
     //Gráfica Prestaciones de ley superiores
+    var presleyyup = [];
+    presleyyup[0] = data1.presleyup.Si;
+    presleyyup[1] = data1.presleyup.No;
     const graphUpperBenefits = document.querySelector("#graphUpperBenefits");
 
     const dataUpperBenefits = {
         labels: labelsYesNo,
         datasets: [{
-            data: [14,16], //Reemplazar por consulta en base de datos
+            data: presleyyup, //Reemplazar por consulta en base de datos
             backgroundColor: colorsYN1,
             borderColor: bordercolorYN1,
             borderWidth: 1
@@ -129,7 +135,7 @@ $(document).ready(function(){
         labels: labelsTime,
         datasets: [{
             label: "Respuestas",
-            data: [2,3,4], //Sustituir en el orden redes, robot, ia, cienciaD, desarolloW
+            data: data1.temptras, //Sustituir en el orden redes, robot, ia, cienciaD, desarolloW
             backgroundColor: 'rgba(232,233,161,0.5)',
             borderColor: 'rgba(230,181,102,1)',
             borderWidth: 1
@@ -143,11 +149,14 @@ $(document).ready(function(){
     new Chart(graphTime, configTime);
 
     //Gráfica Seguro Medico
+    var seguromed = [];
+    seguromed[0] = data1.seguromed.Si;
+    seguromed[1] = data1.seguromed.No;
     const graphMedicalInsurance = document.querySelector("#graphMedicalInsurance");
     const dataMedicalInsurance = {
         labels: labelsYesNo,
         datasets: [{
-            data: [1, 3], //Reemplazar por consulta en base de datos
+            data: seguromed, //Reemplazar por consulta en base de datos
             backgroundColor: colorsYN2,
             borderColor: bordercolorYN2,
             borderWidth: 1
@@ -162,12 +171,15 @@ $(document).ready(function(){
     new Chart(graphMedicalInsurance, configMedicalInsurance);
 
     //Gráfica Satisfacción
+    var satis = [];
+    satis[0] = data1.satisfaccion.Si;
+    satis[1] = data1.satisfaccion.No;
     const graphSatisfaction = document.querySelector("#graphSatisfaction");
 
     const dataSatisfaction = {
         labels: labelsYesNo,
         datasets: [{
-            data: [19, 20], //Reemplazar por consulta en base de datos
+            data: satis, //Reemplazar por consulta en base de datos
             backgroundColor: colorsYN3,
             borderColor: bordercolorYN3,
             borderWidth: 1
@@ -180,4 +192,6 @@ $(document).ready(function(){
     };
 
     new Chart(graphSatisfaction, configSatisfaction);
+}
+});
 });

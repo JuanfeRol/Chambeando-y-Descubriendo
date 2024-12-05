@@ -5,7 +5,7 @@ include_once __DIR__ ."/../DataBase.php";
 use MYAPI\DataBase as Database;
 
 class Create extends Database{
-    public function __construct($based, $usuario='root', $contrasena='Calcetines2') {
+    public function __construct($based, $usuario='root', $contrasena='mendoza21:)') {
         parent::__construct($based, $usuario, $contrasena);
     }
 
@@ -17,7 +17,7 @@ class Create extends Database{
         // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
         $this->conexion->set_charset("utf8");
 
-        $sql = "INSERT INTO areas VALUES ('Mendoza', 21 ,{$consulta->artistico}, {$consulta->comportamientos}, 
+        $sql = "INSERT INTO areas VALUES ('$consulta->nombre', $consulta->edad,{$consulta->artistico}, {$consulta->comportamientos}, 
         {$consulta->predecir}, {$consulta->computadora}, {$consulta->estructurar},{$consulta->manualidades},
         {$consulta->numeros}, {$consulta->automatizar}, {$consulta->sitiosweb},{$consulta->dispelectricos},
         {$consulta->proyectos},{$consulta->DesarrolloWeb},{$consulta->Redes},{$consulta->RoboticaCircuitos},
