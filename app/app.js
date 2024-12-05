@@ -267,9 +267,10 @@ $(document).ready(function(){
 
              let url = './backend/backend4form/resp-add.php';
              $.post(url, postData, function(response){
-                console.log(postData);
+                let respuesta = JSON.parse(response);
+                //console.log(postData);
                 $('#form').trigger('reset');
-                alert(response);
+                alert(respuesta.message);
             });
             //e.preventDefault();
             

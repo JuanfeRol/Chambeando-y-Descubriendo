@@ -52,13 +52,15 @@ class Read extends Database{
                         if($key == 'Redes'){$vred = $value;}
                         if($key == 'RoboticaCircuitos'){$vrob = $value;}
                         if($key == 'InteligenciaArtificial'){$via = $value;}
-                        if($key == 'CienciaDatos'){$vcien = $value;}
+                        if($key == 'CienciaDatos'){$vcien = $value;
+                            $maximo = max($vdes, $vred,$via, $vcien, $vrob);
 
-                        if($vdes > $vred && $vdes > $vrob && $vdes > $via && $vdes > $vcien){$cdes = $cdes +1;}
-                        elseif($vred > $vdes && $vred > $vrob && $vred > $via && $vred > $vcien){$cred = $cred +1;}
-                        elseif($vrob > $vdes && $vrob > $vred && $vrob > $via && $vrob > $vcien){$crob = $crob +1;}
-                        elseif($via > $vdes && $via > $vred && $via > $vrob && $via > $vcien){$cia = $cia +1;}
-                        elseif($vcien > $vdes && $vcien > $vred && $vcien > $vrob && $vcien > $via){$ccien = $ccien + 1;}
+                            if ($maximo == $vdes){ $cdes = $cdes +1; }
+                            if ($maximo == $vred){ $cred = $cred +1; }
+                            if ($maximo == $via){ $cia = $cia +1; }
+                            if ($vcien == $maximo){ $ccien = $ccien + 1; }
+                            if ($maximo == $vrob){ $crob = $crob +1; }
+                        }
                     }
                 }
                 

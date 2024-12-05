@@ -41,7 +41,7 @@ class Create extends Database{
         $this->conexion->close();
     
         // SE HACE LA CONVERSIÓN DE ARRAY A JSON
-        $this->data = json_encode($data, JSON_PRETTY_PRINT);        
+        $this->data = $data;        
     }
 }
 
