@@ -18,11 +18,11 @@ $(document).ready(function() {
         console.log(search);
         $.ajax(
             {
-                url: '../backend/backend4login/product-search.php',
+                url: '../backend/backend4login/search',
                 type: 'POST',
                 data: {search},
                 success: function(response) {
-                    let areas = JSON.parse(response);
+                    let areas = (JSON.parse(response));
                     let template = "";
                     areas.forEach(area => {
                         console.log(area);
@@ -93,7 +93,7 @@ $(document).ready(function() {
         console.log(data);
         console.log(dataJsonString);
         let url =
-            edit === false ? "../backend/backend4login/product-add.php" : "../backend/backend4login/product-edit.php";
+            edit === false ? "../backend/backend4login/list" : "../backend/backend4login/list";
         $.post(url, dataJsonString, function (response) {
             console.log(response);
             let message= JSON.parse(response);
@@ -115,45 +115,6 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-/*
-    //validar cada campo del formulario y mostrar el estado en una barra de estado
-    //validar que el nombre no exista en la base de datos
-    $("#name").keyup(function() {
-        let name = $("#name").val();
-        //se imprime por consola lo enviado en el campo nombre
-        console.log(name);
-
-        //Se envia el nombre a la base de datos para verificar si existe
-        $.ajax({
-            url: 'backend/search-name.php',
-            type: 'POST',
-            data: {name},
-            success: function(response) {
-                let products = JSON.parse(response);
-                if (products.length > 0 || name.trim() === "" || name.length > 100) {
-                    $("#name").addClass("is-invalid");
-                    $("#name").removeClass("is-valid");
-                } else {
-                    $("#name").addClass("is-valid");
-                    $("#name").removeClass("is-invalid");
-                }
-                //Se listan los productos que coinciden con la busqueda con todos sus datos en consola
-                console.log(products);
-                //mostrar el resultado de la busqueda en la barra de estado
-                let searchProducts = JSON.parse(response);
-                let template = "";
-                searchProducts.forEach(product => {
-                    template += `<li>Producto existente: ${area.nombre} <br>Elige un nuevo nombre por favor</li>`;
-                });
-                if (searchProducts.length > 0) {
-                    $("#product-result").removeClass("d-none");
-                }
-                $('#container').html(template);
-            }
-        });
-    }
-    );
-*/
     //validar descripción
     $("#description").keyup(function() {
         let descripcion = $("#description").val();
@@ -208,7 +169,7 @@ $(document).ready(function() {
     //Mostrar productos con jquery
     function fetchProducts() {
         $.ajax({
-            url: '../backend/backend4login/product-list.php',
+            url: '../backend/backend4login/list',
             type: 'GET',
             success: function (response) {
                 let areas = JSON.parse(response);

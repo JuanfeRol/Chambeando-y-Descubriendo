@@ -10,7 +10,7 @@
         }
 
         
-        public function listProduct(){
+        public function list(){
             // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON
             $data = array();
 
@@ -124,6 +124,9 @@
             $this->data = json_encode($data, JSON_PRETTY_PRINT);
         }
 
+        public function getData(){
+            return $this->data;
+        }
       
 
     }

@@ -3,5 +3,8 @@
         "psr-4": {
             "API\\":"myapi/"
         }
+    },
+    "require": {
+        "slim/slim": "^4.0"
     }
 }
