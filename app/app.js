@@ -77,6 +77,13 @@ function getScoreperArea(){
 
 $(document).ready(function(){
     $('#form').submit(function(e){
+        // Obtener elementos del DOM
+        const form = document.getElementById("form");
+        const responseO = document.getElementById("GraficaRes");
+
+        // Ocultar el div de respuesta al cargar la página
+        responseO.style.display = "none";
+        
         let completeArea = true;
         let completeStats = true;
         let completePersonal = true;
@@ -162,6 +169,11 @@ $(document).ready(function(){
         } else {        //Si el formulario está completo
             //Envío a base de datos
             //Establecido de valores
+            // Ocultar el formulario
+            form.style.display = "none";
+
+            // Mostrar el div de respuesta con un mensaje
+            responseO.style.display = "block";
             let a1 = $('input[name="form1-p1"]:checked').val();
             let a2 = $('input[name="form1-p2"]:checked').val();
             let a3 = $('input[name="form1-p3"]:checked').val();
@@ -373,26 +385,5 @@ $(document).ready(function(){
     
         };
         //alert("Se ha presionado enviar");
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Obtener elementos del DOM
-    const form = document.getElementById("form");
-    const responseO = document.getElementById("GraficaRes");
-
-    // Ocultar el div de respuesta al cargar la página
-    responseO.style.display = "none";
-
-    // Escuchar el evento submit del formulario
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Evitar el envío del formulario
-
-        // Ocultar el formulario
-        form.style.display = "none";
-
-        // Mostrar el div de respuesta con un mensaje
-        responseO.style.display = "block";
-        responseO.innerHTML = "<p>Gracias por enviar el formulario.</p>";
     });
 });
